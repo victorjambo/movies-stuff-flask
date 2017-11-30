@@ -1,3 +1,7 @@
+import urllib
+import json
+
+
 def Movies():
     movies = [
         {
@@ -116,3 +120,16 @@ def Shows():
         }
     ]
     return shows
+
+
+def External():
+    file = open('movies.json', 'r')
+    datastore = json.load(file)
+    return datastore
+
+
+def ItunesMovies():
+    url = "https://itunes.apple.com/us/rss/topmovies/limit=25/json"
+    response = urllib.urlopen(url)
+    data = json.loads(response.read())
+    return data

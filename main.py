@@ -2,11 +2,13 @@
 """
 
 from flask import Flask, render_template
-from data import Movies, Shows
+from data import Movies, Shows, ItunesMovies
 app = Flask(__name__)
 
 Movies = Movies()
 Shows = Shows()
+ItunesMovies = ItunesMovies()
+ItunesMovies = ItunesMovies["feed"]["entry"]
 notFound = "Not Found"
 
 
@@ -19,7 +21,13 @@ def index():
 @app.route('/celebs')
 def celebs():
     """celebs and photos page"""
-    return 'This is the celebs & photos page'
+    return 'ItunesMovies'
+
+
+@app.route('/movies')
+def movies():
+    """celebs and photos page"""
+    return render_template('movies.html', external=ItunesMovies)
 
 
 @app.route('/profile/<int:id>')
